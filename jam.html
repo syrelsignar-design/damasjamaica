@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jamaica H. Damas | Animation & Multimedia Portfolio</title>
+<style>
+:root {
+    --bg-main: #060c1a;
+    --bg-navy: #0b192c;
+    --bg-card: #13233c;
+    --bg-card-hover: #1e3e62;
+    --border-line: #1e385c;
+    --border-light: rgba(56, 189, 248, 0.25);
+    --accent-blue: #38bdf8;
+    --accent-glow: rgba(56, 189, 248, 0.35);
+    --accent-gold: #fbbf24;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-light: #cbd5e1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+header {
+    background: rgba(11, 25, 44, 0.92);
+    backdrop-filter: blur(12px);
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border-line);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo span {
+    color: var(--accent-blue);
+    text-shadow: 0 0 10px var(--accent-glow);
+}
+
+nav {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+nav button {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+nav button:hover,
+nav button.active {
+    color: var(--text-primary);
+    background: rgba(30, 62, 98, 0.6);
+    border-color: var(--border-light);
+    box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.page {
+    display: none;
+    min-height: 85vh;
+    padding: 50px 8%;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.page.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 34px;
+    color: var(--accent-blue);
+    margin-bottom: 12px;
+}
+
+h3 {
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-gold);
+    margin-bottom: 10px;
+}
+
+p {
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.highlight {
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.btn-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1e3e62, #0284c7);
+    color: #fff;
+    padding: 13px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid var(--border-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(2, 132, 199, 0.25);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px var(--accent-glow);
+    background: linear-gradient(135deg, #0284c7, #38bdf8);
+    color: #060d19;
+}
+
+.btn-secondary {
+    background: rgba(19, 35, 60, 0.8);
+    color: var(--text-primary);
+    border: 1px solid var(--border-line);
+    box-shadow: none;
+}
+
+.btn-secondary:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent-blue);
+    color: #fff;
+}
+
+#home {
+    text-align: center;
+    align-items: center;
+    background: radial-gradient(ellipse at top, #13233c 0%, #060c1a 70%);
+}
+
+#home p {
+    max-width: 720px;
+    font-size: 18px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    color: var(--accent-blue);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.services-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    margin-top: 35px;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-line);
+    border-radius: 16px;
+    padding: 30px 24px;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    background: var(--bg-card-hover);
+    border-color: var(--accent-blue);
+    box-shadow: 0 10px 25px var(--accent-glow);
+}
+
+.card .symbol {
+    font-size: 36px;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+.card h3 {
+    color: var(--text-primary);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border-line);
+    color: var(--text-secondary);
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--accent-blue);
+    color: var(--bg-main);
+    font-weight: 600;
+    border-color: var(--accent-blue);
+}
+
+.portfolio-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+}
+
+.portfolio-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-line);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent-blue);
+    box-shadow: 0 12px 30px var(--accent-glow);
+}
+
+.portfolio-preview {
+    width: 100%;
+    height: 240px;
+    background: #091322;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--border-line);
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.portfolio-card:hover .portfolio-preview img {
+    transform: scale(1.05);
+}
+
+.portfolio-info {
+    padding: 22px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio-info h4 {
+    font-size: 18px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.portfolio-tag {
+    align-self: flex-start;
+    padding: 3px 10px;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    color: var(--accent-blue);
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.about-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-line);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 900px;
+    margin-top: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.about-box p {
+    margin-bottom: 18px;
+    font-size: 16.5px;
+}
+
+.about-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 1px solid var(--border-line);
+}
+
+.detail-item h5 {
+    color: var(--accent-gold);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.detail-item p {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.contact-container {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.contact-info,
+.contact-form {
+    flex: 1 1 300px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-line);
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.contact-info p {
+    margin: 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.contact-info a {
+    color: var(--accent-blue);
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 13px 16px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border-line);
+    border-radius: 10px;
+    background: #081220;
+    color: var(--text-primary);
+    font-size: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+#form-message {
+    margin-top: 12px;
+    color: var(--accent-blue);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(6, 12, 26, 0.92);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--bg-navy);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    max-width: 850px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    position: relative;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-line);
+    color: var(--text-primary);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.modal-close:hover {
+    background: var(--accent-blue);
+    color: #000;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-image-container {
+    width: 100%;
+    max-height: 500px;
+    background: #060c1a;
+    border-radius: 12px;
+    border: 1px solid var(--border-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.modal-image-container img {
+    max-width: 100%;
+    max-height: 480px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+footer {
+    background: #040912;
+    border-top: 1px solid var(--border-line);
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+}
+
+footer p {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 12px;
+        padding: 15px 5%;
+    }
+    nav {
+        justify-content: center;
+    }
+    h1 {
+        font-size: 32px;
+    }
+    h2 {
+        font-size: 26px;
+    }
+    .page {
+        padding: 35px 5%;
+    }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        JAMAICA <span>DAMAS</span>
+    </div>
+    <nav>
+        <button class="active" onclick="showPage('home', this)">Home</button>
+        <button onclick="showPage('services', this)">Services</button>
+        <button onclick="showPage('portfolio', this)">Portfolio</button>
+        <button onclick="showPage('about', this)">About</button>
+        <button onclick="showPage('contacts', this)">Contacts</button>
+    </nav>
+</header>
+
+<section id="home" class="page active">
+    <div class="badge">BS Animation & Multimedia Arts Student</div>
+    <h1>Creative Vision & <span class="highlight">Visual Storytelling</span></h1>
+    <p>
+        Welcome! I am <strong>Jamaica H. Damas</strong>, a multimedia artist and aspiring animator studying at the 
+        <strong>University of Northwestern Mindanao</strong>. I specialize in traditional comic storyboarding, 
+        expressive digital character art, geometric form rendering, and creative conceptual sketches.
+    </p>
+    <div class="btn-group">
+        <button class="btn" onclick="goTo('portfolio')">View Portfolio</button>
+        <button class="btn btn-secondary" onclick="goTo('contacts')">Get In Touch</button>
+    </div>
+</section>
+
+<section id="services" class="page">
+    <h3>Skills & Capabilities</h3>
+    <h2>What I Do</h2>
+    <p>Combining traditional draftsmanship with digital creative tools for storytelling, character art, and animation pre-production.</p>
+
+    <div class="services-container">
+        <div class="card">
+            <div class="symbol">🎨</div>
+            <h3>Graphic Design & Illustration</h3>
+            <p>Creating vibrant visual compositions, digital illustrations, poster concepts, and brand asset designs.</p>
+        </div>
+        <div class="card">
+            <div class="symbol">🎬</div>
+            <h3>Video & Animation Editing</h3>
+            <p>2D animation fundamentals, storyboarding sequence layout, video editing, and pre-production visual planning.</p>
+        </div>
+        <div class="card">
+            <div class="symbol">✒️</div>
+            <h3>Character Design & Sketching</h3>
+            <p>Traditional ink marker paneling, anime/manga character line art, facial expressions, and conceptual sketchbook doodling.</p>
+        </div>
+    </div>
+</section>
+
+<section id="portfolio" class="page">
+    <h3>Selected Artworks</h3>
+    <h2>Portfolio Gallery</h2>
+    <p>Click any artwork card to expand the full-resolution lightbox view and artist details.</p>
+
+    <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterPortfolio('all', this)">All Works</button>
+        <button class="filter-btn" onclick="filterPortfolio('digital', this)">Digital Art</button>
+        <button class="filter-btn" onclick="filterPortfolio('traditional', this)">Traditional & Sketchbook</button>
+        <button class="filter-btn" onclick="filterPortfolio('study', this)">Storyboards & Studies</button>
+    </div>
+
+    <div class="portfolio-container">
+        
+        <!-- CARD 1: Traditional Comic Storyboard -->
+        <div class="portfolio-card" data-category="study traditional" onclick="openModal(1)">
+            <div class="portfolio-preview">
+                <img src="trad.jpg" alt="Traditional Comic Storyboard & Sketchbook Layout">
+            </div>
+            <div class="portfolio-info">
+                <span class="portfolio-tag">Traditional & Ink Marker</span>
+                <h4>Comic Storyboard & Paneling</h4>
+                <p>Sequential storyboard drawing in ink marker, exploring scene framing, dialogue notes, and character perspective.</p>
+            </div>
+        </div>
+
+        <!-- CARD 2: Digital Character Line Art -->
+        <div class="portfolio-card" data-category="digital" onclick="openModal(2)">
+            <div class="portfolio-preview">
+                <img src="2d pic.jpg" alt="Digital Anime Character Portrait">
+            </div>
+            <div class="portfolio-info">
+                <span class="portfolio-tag">Digital Line Art</span>
+                <h4>Digital Anime Character Portrait</h4>
+                <p>Digital character artwork with high contrast black hair, sharp line art, light skin shading, and blue suit accents.</p>
+            </div>
+        </div>
+
+        <!-- CARD 3: 3D Geometric Form & Value Study -->
+        <div class="portfolio-card" data-category="study digital traditional" onclick="openModal(3)">
+            <div class="portfolio-preview">
+                <img src="3d.jpg.jpg" alt="Geometric Form & Value Study in Digital Canvas">
+            </div>
+            <div class="portfolio-info">
+                <span class="portfolio-tag">Shading & Volume Study</span>
+                <h4>3D Geometric Forms Study</h4>
+                <p>Digital and pencil rendering exercise analyzing directional lighting, gradients, and cast shadows on primary shapes.</p>
+            </div>
+        </div>
+
+        <!-- CARD 4: Character Sketchbook Sheet -->
+        <div class="portfolio-card" data-category="traditional" onclick="openModal(4)">
+            <div class="portfolio-preview">
+                <img src="story.jpg.jpg" alt="Anime Sketchbook & Character Concept Sheet">
+            </div>
+            <div class="portfolio-info">
+                <span class="portfolio-tag">Pen Sketchbook Concept</span>
+                <h4>Manga Character Sketchbook Sheet</h4>
+                <p>Traditional ballpoint pen sketch sheet exploring anime character designs (Gojo, Geto, Himiko Toga, chibis).</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="about" class="page">
+    <h3>Artist Background</h3>
+    <h2>About Jamaica H. Damas</h2>
+    <div class="about-box">
+        <p>
+            Hello! My name is <strong>Jamaica H. Damas</strong>. I am an artist currently taking up a 
+            <strong>Bachelor of Science in Animation and Multimedia Arts</strong> at the <strong>University of Northwestern Mindanao</strong>.
+        </p>
+        <p>
+            My creative journey revolves around visual storytelling, character illustration, animation pre-production, graphic design, and traditional sketching. 
+            I love combining traditional drawing fundamentals—like value shading and ink line work—with modern digital software tools to bring ideas to life.
+        </p>
+        <p>
+            I am actively expanding my technical skills in storyboarding, 2D character animation, and digital art, with the vision of working on impactful creative projects in the animation and gaming industry.
+        </p>
+
+        <div class="about-details">
+            <div class="detail-item">
+                <h5>Full Name</h5>
+                <p>Jamaica H. Damas</p>
+            </div>
+            <div class="detail-item">
+                <h5>Degree Program</h5>
+                <p>BS Animation & Multimedia Arts</p>
+            </div>
+            <div class="detail-item">
+                <h5>Institution</h5>
+                <p>Univ. of Northwestern Mindanao</p>
+            </div>
+            <div class="detail-item">
+                <h5>Core Focus</h5>
+                <p>Storyboarding & Character Design</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contacts" class="page">
+    <h3>Get In Touch</h3>
+    <h2>Let's Collaborate</h2>
+    <p>Have a question, creative commission, or project inquiry? Send a message below!</p>
+
+    <div class="contact-container">
+        <div class="contact-info">
+            <h3>Contact Details</h3>
+            <p>📧 Email: <a href="mailto:jamaica.damas@nmsc.edu.ph">jamaica.damas@nmsc.edu.ph</a></p>
+            <p>📍 Location: Misamis Occidental, Philippines</p>
+            <p>🎓 School: University of Northwestern Mindanao</p>
+            <p>💬 Facebook: <a href="https://facebook.com" target="_blank">Jamaica Damas</a></p>
+        </div>
+
+        <div class="contact-form">
+            <h3>Send Message</h3>
+            <form onsubmit="sendMessage(event)">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email Address" required>
+                <textarea placeholder="Your Message or Project Idea..." required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+            <p id="form-message"></p>
+        </div>
+    </div>
+</section>
+
+<div id="artwork-modal" class="modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="modal-body">
+            <div id="modal-image-slot" class="modal-image-container"></div>
+            <div>
+                <span id="modal-tag" class="portfolio-tag">Category</span>
+                <h2 id="modal-title" style="margin-top: 5px;">Artwork Title</h2>
+                <p id="modal-desc" style="margin-top: 10px; font-size: 15px; color: var(--text-light);"></p>
+                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-line); display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div><span style="font-size: 11px; color: var(--accent-gold); text-transform: uppercase;">Medium</span><p id="modal-medium" style="font-size: 14px; font-weight: 600;"></p></div>
+                    <div><span style="font-size: 11px; color: var(--accent-gold); text-transform: uppercase;">Artist</span><p style="font-size: 14px; font-weight: 600;">Jamaica H. Damas</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Jamaica H. Damas &mdash; University of Northwestern Mindanao &mdash; All Rights Reserved.</p>
+</footer>
+
+<script>
+/* Page Navigation Logic */
+function showPage(pageId, button) {
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    const targetPage = document.getElementById(pageId);
+    if(targetPage) {
+        targetPage.classList.add('active');
+    }
+    
+    document.querySelectorAll('nav button').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    if(button) {
+        button.classList.add('active');
+    }
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function goTo(pageId) {
+    const buttons = document.querySelectorAll('nav button');
+    buttons.forEach(button => {
+        if (button.textContent.trim().toLowerCase().includes(pageId.toLowerCase())) {
+            showPage(pageId, button);
+        }
+    });
+}
+
+/* Portfolio Filter Logic */
+function filterPortfolio(category, btnElement) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btnElement.classList.add('active');
+
+    const cards = document.querySelectorAll('.portfolio-card');
+    cards.forEach(card => {
+        const categories = card.getAttribute('data-category');
+        if (category === 'all' || categories.includes(category)) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+/* Modal Lightbox Data using Image files */
+const artworkData = {
+    1: {
+        title: "Traditional Comic Storyboard & Paneling",
+        tag: "Traditional & Ink Marker",
+        medium: "Sketchbook, Fine Marker Pens, Graphite Pencil",
+        desc: "A hands-on storyboarding exercise detailing multi-panel composition, character posture in perspective, and handwritten story script notes ('I knew staring at him would draw more attention...').",
+        imgSrc: "story.jpg.jpg",
+        alt: "Traditional Comic Storyboard & Sketchbook Layout"
+    },
+    2: {
+        title: "Digital Anime Character Portrait",
+        tag: "Digital Line Art",
+        medium: "Digital Canvas, Stylus Pen",
+        desc: "Clean digital line illustration showcasing bold black hair styling, expressive eyes with light highlights, natural skin tones, and a striking blue jacket collar accent.",
+        imgSrc: "2d dgi.jpg.jpg",
+        alt: "Digital Anime Character Portrait"
+    },
+    3: {
+        title: "3D Geometric Forms & Value Study",
+        tag: "Shading & Volume Study",
+        medium: "Digital Canvas Shading & Pencil Fundamentals",
+        desc: "Fundamental art study analyzing primary geometric shapes (sphere, cone/pyramid, cube/square) to master core light source angles, core shadows, highlights, and cast shadows. Signed by Jamaica H. Damas.",
+        imgSrc: "3d.jpg.jpg",
+        alt: "Geometric Form & Value Study in Digital Canvas"
+    },
+    4: {
+        title: "Manga Character Sketchbook Sheet",
+        tag: "Pen Sketchbook Concept",
+        medium: "Ballpoint Pen, Sketch Paper",
+        desc: "Expressive traditional sketch sheet featuring character doodles including Gojo Satoru, Geto Suguru, Himiko Toga, and various chibi facial studies. Signed with signature 'ZUKARINKAKIMIKA' and 'Jamaica'.",
+        imgSrc: "trad.jpg",
+        alt: "Anime Sketchbook & Character Concept Sheet"
+    }
+};
+
+/* Modal Handler Logic */
+function openModal(id) {
+    const data = artworkData[id];
+    if(data) {
+        document.getElementById('modal-image-slot').innerHTML = `<img src="${data.imgSrc}" alt="${data.alt}">`;
+        document.getElementById('modal-title').textContent = data.title;
+        document.getElementById('modal-tag').textContent = data.tag;
+        document.getElementById('modal-desc').textContent = data.desc;
+        document.getElementById('modal-medium').textContent = data.medium;
+        document.getElementById('artwork-modal').classList.add('active');
+    }
+}
+
+function closeModal() {
+    document.getElementById('artwork-modal').classList.remove('active');
+}
+
+/* Contact Form Submission Handler */
+function sendMessage(e) {
+    e.preventDefault();
+    document.getElementById('form-message').textContent = "Thank you! Your message has been sent to Jamaica H. Damas.";
+    e.target.reset();
+}
+</script>
+</body>
+</html>
